@@ -16,19 +16,19 @@ func (g *game) roll(pinsDown int) {
 
 func (g game) score() int {
 	var retVal int
-	var rollPointer int
+	var frameStartIndex int
 
-	rollPointer = 0
+	frameStartIndex = 0
 	for frameCounter := 0; frameCounter < 10; frameCounter++ {
-		if g.isStrike(rollPointer) {
-			retVal += (g.rolls[rollPointer] + g.rolls[rollPointer+1] + g.rolls[rollPointer+2])
-			rollPointer++
-		} else if g.isSpare(rollPointer) {
-			retVal += (g.rolls[rollPointer] + g.rolls[rollPointer+1] + g.rolls[rollPointer+2])
-			rollPointer += 2
+		if g.isStrike(frameStartIndex) {
+			retVal += (g.rolls[frameStartIndex] + g.rolls[frameStartIndex+1] + g.rolls[frameStartIndex+2])
+			frameStartIndex++
+		} else if g.isSpare(frameStartIndex) {
+			retVal += (g.rolls[frameStartIndex] + g.rolls[frameStartIndex+1] + g.rolls[frameStartIndex+2])
+			frameStartIndex += 2
 		} else {
-			retVal += (g.rolls[rollPointer] + g.rolls[rollPointer+1])
-			rollPointer += 2
+			retVal += (g.rolls[frameStartIndex] + g.rolls[frameStartIndex+1])
+			frameStartIndex += 2
 		}
 
 	}
@@ -36,10 +36,10 @@ func (g game) score() int {
 	return retVal
 }
 
-func (g game) isStrike(rollPointer int) bool {
+func (g game) isStrike(frameStartIndex int) bool {
 	var retVal bool
 
-	if g.rolls[rollPointer] == 10 {
+	if g.rolls[frameStartIndex] == 10 {
 		retVal = true
 	} else {
 		retVal = false
@@ -47,10 +47,10 @@ func (g game) isStrike(rollPointer int) bool {
 	return retVal
 }
 
-func (g game) isSpare(rollPointer int) bool {
+func (g game) isSpare(frameStartIndex int) bool {
 	var retVal bool
 
-	if g.rolls[rollPointer]+g.rolls[rollPointer+1] == 10 && g.rolls[rollPointer] != 10 {
+	if g.rolls[frameStartIndex]+g.rolls[frameStartIndex+1] == 10 && g.rolls[frameStartIndex] != 10 {
 		retVal = true
 	} else {
 		retVal = false
