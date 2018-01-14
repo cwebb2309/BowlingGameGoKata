@@ -20,10 +20,10 @@ func (g game) score() int {
 
 	rollPointer = 0
 	for frameCounter := 0; frameCounter < 10; frameCounter++ {
-		if isStrike(g.rolls[rollPointer]) {
+		if g.isStrike(rollPointer) {
 			retVal += (g.rolls[rollPointer] + g.rolls[rollPointer+1] + g.rolls[rollPointer+2])
 			rollPointer++
-		} else if isSpare(g.rolls[rollPointer], g.rolls[rollPointer+1]) {
+		} else if g.isSpare(rollPointer) {
 			retVal += (g.rolls[rollPointer] + g.rolls[rollPointer+1] + g.rolls[rollPointer+2])
 			rollPointer += 2
 		} else {
@@ -36,10 +36,10 @@ func (g game) score() int {
 	return retVal
 }
 
-func isStrike(ballOne int) bool {
+func (g game) isStrike(rollPointer int) bool {
 	var retVal bool
 
-	if ballOne == 10 {
+	if g.rolls[rollPointer] == 10 {
 		retVal = true
 	} else {
 		retVal = false
@@ -47,10 +47,10 @@ func isStrike(ballOne int) bool {
 	return retVal
 }
 
-func isSpare(ballOne int, ballTwo int) bool {
+func (g game) isSpare(rollPointer int) bool {
 	var retVal bool
 
-	if ballOne+ballTwo == 10 && ballOne != 10 {
+	if g.rolls[rollPointer]+g.rolls[rollPointer+1] == 10 && g.rolls[rollPointer] != 10 {
 		retVal = true
 	} else {
 		retVal = false
