@@ -6,7 +6,7 @@ type game struct {
 }
 
 func main() {
-
+	//empty main, just use tests
 }
 
 func (g *game) roll(pinsDown int) {
